@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { useNavigate } from "react-router";
 import { createPortal } from "react-dom";
 import { MapPin, Phone, Clock, X, QrCode, Check, UserRound, UserRoundPlus } from "lucide-react";
+import { trackEvent } from "../utils/track";
 
 const services = [
   {
@@ -74,6 +75,8 @@ export default function Campus() {
   };
 
   const handleServiceClick = (serviceId: string) => {
+    const service = services.find(s => s.id === serviceId);
+    trackEvent('module_click', { module: serviceId, module_name: service?.name || '' });
     if (isNewUser) {
       // 新用户：弹出信息填写弹窗
       setPendingServiceId(serviceId);

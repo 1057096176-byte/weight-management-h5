@@ -1,14 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>体重管理 新</title>
+    <script>
+      (function(w, d, s, q, i) {
+        w[q] = w[q] || [];
+        var f = d.getElementsByTagName(s)[0], j = d.createElement(s);
+        j.async = true;
+        j.id = 'beacon-aplus';
+        j.src = 'https://d.alicdn.com/alilog/mlog/aplus/' + i + '.js';
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'aplus_queue', '203467608');
 
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>体重管理 新</title>
-    </head>
+      aplus_queue.push({
+        action: 'aplus.setMetaInfo',
+        arguments: ['appKey', '69f2ba646f259537c7a17d28']
+      });
+      aplus_queue.push({
+        action: 'aplus.setMetaInfo',
+        arguments: ['aplus-waiting', 'MAN']
+      });
+      aplus_queue.push({
+        action: 'aplus.setMetaInfo',
+        arguments: ['aplus-idtype', 'openid']
+      });
+    </script>
+  </head>
 
-    <body>
-      <div id="root"></div>
-      <script type="module" src="/src/main.tsx"></script>
-    </body>
-  </html>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "motion/react";
 import { Link } from "react-router";
+import { trackEvent } from "../utils/track";
 import {
   Calendar,
   ArrowRight,
@@ -522,6 +523,7 @@ export function ChatMessage({
               <div style={{ padding: "0 16px 20px", display: "flex", flexDirection: "column", gap: "10px" }}>
                 <motion.div
                   whileTap={{ scale: 0.98 }}
+                  onClick={() => trackEvent('appointment_click', { type: 'clinic' })}
                   style={{
                     display: "flex", alignItems: "center", justifyContent: "space-between",
                     padding: "16px", background: "rgba(255, 255, 255, 0.8)", borderRadius: "12px",
@@ -549,6 +551,7 @@ export function ChatMessage({
                 </motion.div>
                 <motion.div
                   whileTap={{ scale: 0.98 }}
+                  onClick={() => trackEvent('appointment_click', { type: 'online' })}
                   style={{
                     display: "flex", alignItems: "center", justifyContent: "space-between",
                     padding: "16px", background: "rgba(255, 255, 255, 0.8)", borderRadius: "12px",

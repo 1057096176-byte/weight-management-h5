@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router";
-import { ClipboardList, Stethoscope, Zap, ScanFace, FlaskConical } from "lucide-react";
+import { ClipboardList, Stethoscope, Zap, ScanFace, FlaskConical, Watch } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { trackEvent } from "../utils/track";
 
 interface QuickActionsProps {
   onTriageClick?: () => void;
@@ -9,6 +10,7 @@ interface QuickActionsProps {
   onDeviceClick?: () => void;
   onMealServiceClick?: () => void;
   onAppointmentClick?: () => void;
+  onBindDeviceClick?: () => void;
   onModeChange?: (mode: "fast" | "expert" | "predict") => void;
   initialMode?: "fast" | "expert" | "predict";
   externalMode?: "fast" | "expert" | "predict";
@@ -20,6 +22,7 @@ export function QuickActions({
   onDeviceClick,
   onMealServiceClick,
   onAppointmentClick,
+  onBindDeviceClick,
   onModeChange,
   initialMode = "fast",
   externalMode,
@@ -45,6 +48,12 @@ export function QuickActions({
       label: "智能导诊",
       to: undefined,
       onClick: onTriageClick,
+    },
+    {
+      icon: Watch,
+      label: "设备绑定",
+      to: undefined,
+      onClick: onBindDeviceClick,
     },
   ];
 
@@ -203,7 +212,7 @@ export function QuickActions({
                 return (
                   <button
                     key={action.label}
-                    onClick={action.onClick}
+                    onClick={() => { trackEvent('quick_action_click', { action: action.label }); action.onClick!(); }}
                     className={className}
                     style={style}
                     onMouseEnter={(e) => {

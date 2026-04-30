@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { Menu, Users, TrendingUp, TrendingDown, ArrowRight, X, ChevronLeft, ChevronRight, Target } from "lucide-react";
+import { trackEvent } from "../utils/track";
 import { Sidebar } from "../components/Sidebar";
 import { ChatMessage } from "../components/ChatMessage";
 import { ChatInput } from "../components/ChatInput";
@@ -329,6 +330,14 @@ export default function Home() {
 
     if (!message.trim()) return;
 
+    const userMessageCount = messages.filter(m => m.isUser).length;
+    if (userMessageCount === 0) {
+      trackEvent('first_message', { module: fromEntry });
+    }
+    if (userMessageCount === 2) {
+      trackEvent('multi_round_dialog', { module: fromEntry, rounds: 3 });
+    }
+
     // 预测模式下新用户未绑定，拦截手术预测
     if (aiModeRef.current === "predict" && isNewUser && userInfoStage !== "complete" && message.includes("手术")) {
       setMessages((prev) => [
@@ -491,7 +500,7 @@ export default function Home() {
       let quickAccessType: 'all' | 'checkin' | 'triage' | 'doctor' | null = null;
 
       // 检测目标体重修改
-      const targetWeightMatch = message.match(/目标体重[改设调](?:为|成|到)\s*(\d+\.?\d*)/);
+      const targetWeightMatch = message.match(/(?:目标体重?|改目标|目标)[改设调]?(?:为|成|到)?\s*(\d+\.?\d*)/);
       if (targetWeightMatch) {
         const newTarget = parseFloat(targetWeightMatch[1]);
         if (newTarget >= 30 && newTarget <= 200) {
@@ -2131,7 +2140,7 @@ export default function Home() {
               <div style={{ padding: "0 16px 20px", display: "flex", flexDirection: "column", gap: "10px" }}>
                 <motion.div
                   whileTap={{ scale: 0.98 }}
-                  onClick={() => handleSendMessage("手术预测")}
+                  onClick={() => { trackEvent('prediction_start'); handleSendMessage("手术预测"); }}
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -2257,6 +2266,7 @@ export default function Home() {
             }]);
           }, 800);
         }}
+        onBindDeviceClick={() => navigate("/bind-device")}
         onModeChange={handleModeChange}
       />
 

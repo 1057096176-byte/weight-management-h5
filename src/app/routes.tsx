@@ -18,6 +18,7 @@ import OrderDetail from "./pages/OrderDetail";
 import Devices from "./pages/Devices";
 import Addresses from "./pages/Addresses";
 import Auth from "./pages/Auth";
+import BindDevice from "./pages/BindDevice";
 import NotFound from "./pages/NotFound";
 
 export const router = createBrowserRouter(
@@ -32,6 +33,7 @@ export const router = createBrowserRouter(
       { path: "campus", Component: Campus },
       { path: "chat", Component: Home },
       { path: "bind", Component: Bind },
+      { path: "bind-device", Component: BindDevice },
       { path: "triage", Component: Triage },
       { path: "doctors", Component: DoctorList },
       { path: "doctor/:id", Component: Doctor },

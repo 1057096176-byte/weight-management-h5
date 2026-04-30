@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
 import { motion } from "motion/react";
+import { trackEvent } from "../utils/track";
 import logoEmblem from "../../assets/logo_emblem.png";
 import logoText from "../../assets/logo_text.png";
 
@@ -7,6 +8,7 @@ export default function Auth() {
   const navigate = useNavigate();
 
   const handleWeChatLogin = () => {
+    trackEvent('wechat_auth_click');
     navigate("/campus");
   };
 
